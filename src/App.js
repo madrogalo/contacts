@@ -1,24 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
-import Button from '@material-ui/core/Button';
+import React from 'react';
+import Header from './components/header';
+import SearchAppBar from './components/search';
+import UsersTable from './components/table';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
+import Container from '@material-ui/core/Container';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Button variant="contained" color="primary">
-          Hello World
-        </Button>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      
+      <React.Fragment>
+        <CssBaseline />
+        <Container fixed>
+          <Header />
+          <SearchAppBar />
+          <UsersTable />
+        </Container>
+      </React.Fragment>
     </div>
   );
 }
