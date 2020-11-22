@@ -74,6 +74,16 @@ const headCells = [
   { id: 'carbs', numeric: true, disablePadding: false, label: 'Carbs (g)' },
   { id: 'protein', numeric: true, disablePadding: false, label: 'Protein (g)' },
 ];
+const headCells2 = [
+    { id: 'avatar', numeric: false, disablePadding: true, label: 'Avatar' },
+    { id: 'name', numeric: false, disablePadding: true, label: 'Full name' },
+    { id: 'email', numeric: false, disablePadding: true, label: 'Email' },
+    { id: 'phone', numeric: false, disablePadding: true, label: 'Phone' },
+    { id: 'locaton', numeric: false, disablePadding: true, label: 'Locaton' },
+    { id: 'Nationality', numeric: false, disablePadding: true, label: 'Nationality' },
+
+  
+];
 
 function EnhancedTableHead(props) {
   const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
@@ -84,7 +94,7 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
+        <TableCell padding="checkbox">aaaaaaa
           <Checkbox
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
@@ -93,6 +103,27 @@ function EnhancedTableHead(props) {
           />
         </TableCell>
         {headCells.map((headCell) => (
+          <TableCell
+            key={headCell.id}
+            align={headCell.numeric ? 'right' : 'left'}
+            padding={headCell.disablePadding ? 'none' : 'default'}
+            sortDirection={orderBy === headCell.id ? order : false}
+          >
+            <TableSortLabel
+              active={orderBy === headCell.id}
+              direction={orderBy === headCell.id ? order : 'asc'}
+              onClick={createSortHandler(headCell.id)}
+            >
+              {headCell.label}
+              {orderBy === headCell.id ? (
+                <span className={classes.visuallyHidden}>
+                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                </span>
+              ) : null}
+            </TableSortLabel>
+          </TableCell>
+        ))}
+        {headCells2.map((headCell) => (
           <TableCell
             key={headCell.id}
             align={headCell.numeric ? 'right' : 'left'}
@@ -221,6 +252,16 @@ export default function UsersTable() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+    const getUser = fetch('https://randomuser.me/api/?results=200')
+    .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+      });
+
+  React.useEffect(() => getUser, [])
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
